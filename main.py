@@ -1,4 +1,6 @@
 import cv2
+import time
+from pytesseract import pytesseract
 
 face_db = cv2.CascadeClassifier(cv2.data.haarcascades+"haarcascade_frontalface_alt.xml")
 
@@ -21,6 +23,7 @@ while True:
     cv2.imshow("camera", img)
     if cv2.waitKey(10) & 0xff == ord('q'): # Клавиша q
         break
+    time.sleep(0.3)
 
 cap.release()
 cv2.destroyAllWindows()
