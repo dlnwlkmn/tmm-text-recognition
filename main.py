@@ -5,6 +5,8 @@ from pytesseract import Output
 
 pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
 
+# One picture text recognition
+
 # img = cv2.imread("text.png")
 #
 # img_text = pytesseract.image_to_string(img)
@@ -22,17 +24,18 @@ pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
 # cv2.imshow("camera", img)
 # cv2.waitKey(0)
 
-face_db = cv2.CascadeClassifier(cv2.data.haarcascades+"haarcascade_frontalface_alt.xml")
+# face_db = cv2.CascadeClassifier(cv2.data.haarcascades+"haarcascade_frontalface_alt.xml")
 
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FPS, 24) # Частота кадров
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 600) # Ширина кадров в видеопотоке.
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480) # Высота кадров в видеопотоке.
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 480) # Ширина кадров в видеопотоке.
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 320) # Высота кадров в видеопотоке.
 
 while True:
     ret, img = cap.read()
     if ret == False: # Клавиша q
         break
+    # Face recognition
     # img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
     img_data = pytesseract.image_to_data(img, output_type=Output.DICT)
@@ -43,15 +46,15 @@ while True:
             cv2.rectangle(img, (x,y), (x+w, y+h), (0, 255, 0), 2)
             cv2.putText(img, word, (x,y-8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
 
+    # Face recognition
     # smiles = face_db.detectMultiScale(img_gray, 1.1, 19)
-
+    #
     # for (x, y, w, h) in smiles:
     #     cv2.rectangle(img, (x,y), (x+w, y+h), (0, 255, 0), 2)
 
     cv2.imshow("camera", img)
     if cv2.waitKey(10) & 0xff == ord('q'): # Клавиша q
         break
-    # time.sleep(0.05)
 
 cap.release()
 cv2.destroyAllWindows()
