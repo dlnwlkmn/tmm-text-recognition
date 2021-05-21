@@ -25,7 +25,7 @@ pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
 face_db = cv2.CascadeClassifier(cv2.data.haarcascades+"haarcascade_frontalface_alt.xml")
 
 cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FPS, 1) # Частота кадров
+cap.set(cv2.CAP_PROP_FPS, 24) # Частота кадров
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 600) # Ширина кадров в видеопотоке.
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480) # Высота кадров в видеопотоке.
 
@@ -51,7 +51,7 @@ while True:
     cv2.imshow("camera", img)
     if cv2.waitKey(10) & 0xff == ord('q'): # Клавиша q
         break
-    time.sleep(0.3)
+    # time.sleep(0.05)
 
 cap.release()
 cv2.destroyAllWindows()
